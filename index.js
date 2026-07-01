@@ -61,14 +61,32 @@ app.use((req, res, next) => {
   next();
 });
 
-// Firebase
+// Firebase (gmail-lost)
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBt3xmDNOxSKuWyeikaLqxUnZBXBwudXVQ",
+//   authDomain: "locate-my-ip-4ce83.firebaseapp.com",
+//   projectId: "locate-my-ip-4ce83",
+//   storageBucket: "locate-my-ip-4ce83.firebasestorage.app",
+//   messagingSenderId: "21940563761",
+//   appId: "1:21940563761:web:e9c90c537c8b42ccca0a10"
+// };
+// open credential with 7team
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDvO8xgmcDmHG1gw5n5NYdNbsvEj2_etLM",
+//   authDomain: "ip-check-8ca7e.firebaseapp.com",
+//   projectId: "ip-check-8ca7e",
+//   storageBucket: "ip-check-8ca7e.firebasestorage.app",
+//   messagingSenderId: "243651616930",
+//   appId: "1:243651616930:web:f289e4f1d21d9f27e1f7fb"
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBt3xmDNOxSKuWyeikaLqxUnZBXBwudXVQ",
-  authDomain: "locate-my-ip-4ce83.firebaseapp.com",
-  projectId: "locate-my-ip-4ce83",
-  storageBucket: "locate-my-ip-4ce83.firebasestorage.app",
-  messagingSenderId: "21940563761",
-  appId: "1:21940563761:web:e9c90c537c8b42ccca0a10"
+  apiKey: "AIzaSyCsLFNcBmAmVAkIcsdeUETH0wmJstLjYcQ",
+  authDomain: "geo-info-b7fa4.firebaseapp.com",
+  projectId: "geo-info-b7fa4",
+  storageBucket: "geo-info-b7fa4.firebasestorage.app",
+  messagingSenderId: "1014074057981",
+  appId: "1:1014074057981:web:7bc7ee4315b79285564a94"
 };
 
 // Initialize Firebase
@@ -355,6 +373,11 @@ app.get("/api/requests", async (req, res) => {
       } else {
         q = query(collection(db, "requests"), ...base, limit(pageSize));
       }
+
+      const snapshot = await db.collection("request").get();
+      console.log("Empty:", snapshot.empty);
+
+      console.log("Size:", snapshot.size); return;
 
       const snap = await getDocs(q);
       const items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
